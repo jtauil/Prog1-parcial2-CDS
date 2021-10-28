@@ -14,9 +14,10 @@ class Pista{
                 alert('Error, la duración se excede de lo debido');
             }
             this.#duracion = parseInt(prompt('Ingrese la duración del disco. Debe ser entre 0 y 7200 segundos, inclusive'));
-        } while (!(this.#duracion >= 0 && this.#duracion <= 7200));
+            banderita = !(this.#duracion >= 0 && this.#duracion <= 7200)
+        } while (banderita);
     }
-     banderita = false;
+     
 
      establecerNombrePista() {
         do {
