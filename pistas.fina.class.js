@@ -8,7 +8,7 @@ class Pista {
         console.log('nueva pista creada');
     }
 
-    setNombre(){
+    setNombrePista(){
 
         do{
         this.#nombre = prompt('ingrese el nombre de la cancion');
@@ -20,7 +20,7 @@ class Pista {
     }
 
 
-    getDuracionPista(){
+    setDuracionPista(){
         let banderita = false; 
         do{
             if (banderita){
@@ -30,7 +30,7 @@ class Pista {
         } while (banderita);
     }
     
-    getDuracion() {
+    getDuracionPista() {
         return this.#duracion;
     }
 
