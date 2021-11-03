@@ -1,6 +1,10 @@
 'use strict';
-console.log("hola");
+
 let discos =[];
+
+// TESTEO // 
+
+
 
 // CLASS DISCO //
 class Disco {
@@ -44,7 +48,7 @@ class Disco {
 
             this.#codigo = parseInt(prompt('Ingrese codigo del disco')); // ingreso datos 
 
-        }while(!(this.#codigo >= 1 && this.#codigo >= 999 ) || Disco.codigos.includes(this.#codigo));
+        }while(!(this.#codigo >= 1 && this.#codigo <= 999 ) || Disco.codigos.includes(this.#codigo));
         Disco.codigos.push(this.#codigo);
         console.log(Disco.codigos);
     }
@@ -52,10 +56,14 @@ class Disco {
     getCodigo(){
         return this.#codigo;
     }
+    setPista(pista){
+        this.pistas.push(pista); // recibo un objeto de tipo pista en lista pistas
+    }
+
     acumDuracionPistas() {
         let acum = 0;
 
-        for(pista of this.pistas) {
+        for(let pista of pistas) {
             acum += pista.getDuracionPista();
         }
 
@@ -70,7 +78,7 @@ class Disco {
     promedioPistas(){
         let cantidad = this.pistas.length; // length del array
         
-        for (let pista of this.pista) {
+        for (let pista of this.pistas) {
             acum += pista.getDuracion();
         }
 
@@ -85,16 +93,29 @@ class Disco {
 
     bloqueHtml(){
 
-        let html = `<p> <strong>Nombre del disco: </strong> ${this.#nombre} </p>`;
+        let html = `<p> <strong>Nombre del disco: </strong> ${this.#nombre}`;
 
-        html += `<p> <strong>Autor: </strong> ${this.#autor} </p>`;
+        html += `<ul>`
+        html += `<li>Nombre del autor: ${this.#autor}</li>`;
+        html += `<li>Número de código: ${this.#codigo}</li>`;
 
-        html += `<p> <strong>C贸digo: </strong> # ${this.#codigo} </p>`;
+        html += `<p> <strong>Pistas</strong></p>`;
+        html += `<ul>`;
 
-    return html;
+        html += `<p>Promedio de duración de las pistas: ${this.promedioPistas()}</p>`
+
+        for (let pista of this.pistas){
+            html +=`<li> ${pista.bloqueHtml()}</li>`;
+        }
+
+        html += `</ul>`;
+        
+        return html;
     }
 
 
+
+// ----------------- CLASE PISTA ------------------------ //
     
 }
 class Pista {
@@ -145,9 +166,11 @@ class Pista {
 
 
 // Función Cargar:
+let disco = new Disco();
 
 function Cargar(){
-    let disco = new Disco();
+
+   
 
     disco.setNombre();
     disco.setAutor();
@@ -158,7 +181,7 @@ function Cargar(){
        let pista = new Pista();
        pista.setNombrePista();
        pista.setDuracionPista();
-       disco.pistas.push(pista);
+       disco.setPista(pista);
         result = confirm("Desea ingresar otra pista?");
        
 
@@ -172,25 +195,22 @@ function Cargar(){
 
 // Función Mostrar:
 function Mostrar() {
+  
     let html = ``;
 
-    for (let disco of discografia) {
-        html += `<p>nombre del disco: ${disco.nombre}`;
-        html += `<p>nombre del autor: ${disco.autor}`;
-        html += `<p>nombre del disco: ${disco.codigo}`;
+    for (let disco of discos) {
+        html += disco.bloqueHtml();
 
     }
 
-    for (let pista of pistas) {
-        html += `<p>nombre de la pista: ${pista.nombre}`;
-        html += `<p>duracion: ${pista.duracion}`;
+    for (let pista of disco.pistas) {
+       html += pista.bloqueHtml();
     }
 
-
-
+    document.getElementById('info').innerHTML = html;
 }
 
-document.getElementById('info').innerHTML = html;
+
 
 //deshacer --> { elimina el ultimo disco agregado //eliminas
                 ///Disco.cantidadDiscos--; // decrementas
