@@ -1,5 +1,5 @@
 'use strict';
-
+console.log("hola");
 let discos =[];
 
 // CLASS DISCO //
@@ -7,6 +7,7 @@ class Disco {
     #nombre = 'Nombre del disco';
     #autor = 'autor del disco';
     #codigo;
+    pistas = [];
     static codigos = [];
     static cantidadDiscos = 0 ; // es un contador empieza en cero
 
@@ -51,6 +52,36 @@ class Disco {
     getCodigo(){
         return this.#codigo;
     }
+    acumDuracionPistas() {
+        let acum = 0;
+
+        for(pista of this.pistas) {
+            acum += pista.getDuracionPista();
+        }
+
+        return acum;
+    }
+
+    cantidadPistas() {
+        let cantidad = this.pistas.length;
+        return cantidad;
+    }
+
+    promedioPistas(){
+        let cantidad = this.pistas.length; // length del array
+        
+        for (let pista of this.pista) {
+            acum += pista.getDuracion();
+        }
+
+
+        let promedioDuracion = acum/cantidad ;
+        return promedioDuracion;
+    }
+
+    getPromedio(){
+        return this.promedioPistas;
+    }
 
     bloqueHtml(){
 
@@ -66,6 +97,51 @@ class Disco {
 
     
 }
+class Pista {
+    #nombre = 'nombre de la pista';
+    #duracion = '';
+
+
+    constructor(){
+        console.log('nueva pista creada');
+    }
+
+    setNombrePista(){
+
+        do{
+        this.#nombre = prompt('ingrese el nombre de la cancion');
+        }while(!isNaN(this.#nombre));
+    }
+
+    getNombre(){
+        return this.#nombre;
+    }
+
+
+    setDuracionPista(){
+        let banderita = false; 
+        do{
+            if (banderita){
+                alert('Error, la duración se excede de lo debido');  }
+            this.#duracion = parseInt(prompt('Ingrese la duración del disco. Debe ser entre 0 y 7200 segundos, inclusive'));
+            banderita = !(this.#duracion >= 0 && this.#duracion <= 7200)
+        } while (banderita);
+    }
+    
+    getDuracionPista() {
+        return this.#duracion;
+    }
+
+
+    bloqueHtml(){
+
+        let html = `Nombre: ${this.#nombre} - <strong>Duracion:</strong> <span class="${(this.#duracion > 180) ? 'dpb' : 'apb'}">${this.#duracion}</span>`;
+        return html;
+    }
+
+}
+
+
 
 
 // Función Cargar:
@@ -77,18 +153,20 @@ function Cargar(){
     disco.setAutor();
     disco.setCodigo();
 
-    
-   // do{
-       // let pista = new Pista();
-       // pista.setNombrePista();
-       //pista.setDuracionPista();
+    let result = true;
+    do{
+       let pista = new Pista();
+       pista.setNombrePista();
+       pista.setDuracionPista();
+       disco.pistas.push(pista);
+        result = confirm("Desea ingresar otra pista?");
+       
 
-    //} while (confirm('Desea ingresar una nueva pista?'));
-   //listadoDiscos.push(disco);
-
-   // discos.push(disco);
+    } while(result);
 
    discos.push(disco);
+   
+
 };
 
 
@@ -112,7 +190,7 @@ function Mostrar() {
 
 }
 
-//document.getElementById('info').innerHTML = html;
+document.getElementById('info').innerHTML = html;
 
 //deshacer --> { elimina el ultimo disco agregado //eliminas
                 ///Disco.cantidadDiscos--; // decrementas
