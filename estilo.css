@@ -32,8 +32,8 @@ html {
 
 /** Body */
 body {
-    background-color: #134F5C;
-    color: #D0E0E3;
+    background-color: #e5d98f;
+    color: #000000;
 }
 
 /** Header */
@@ -57,7 +57,7 @@ h2 {
 
 h2 {
     font-size: 3em;
-    color: #134F5C;
+    color: #000000;
 }
 
 /** Main */
@@ -74,7 +74,7 @@ main p {
     font-size: 2.4em;
     line-height: 1.5;
     text-align: left;
-    color: #134F5C;
+    color: #000000;
 }
 
 main p strong, 
@@ -103,7 +103,7 @@ main ul li {
     font-size: 2.4em;
     line-height: 1.5;
     text-align: left;
-    color: #1A4A5E;
+    color: #000000;
 }
 
 main ul li strong,
@@ -124,12 +124,12 @@ main button {
     border: none;
     border-radius: .5em;
     padding: .25em .5em;
-    background: #134F5C;
+    background: #a8a4a4;
     cursor: pointer;
     font-size: 2.4em;
     line-height: 1.5;
     text-align: center;
-    color: #D0E0E3;
+    color: #000000;
 }
 
 main div.galeria {
@@ -141,7 +141,7 @@ main div.galeria {
     margin: 1em 0;
     width: 100%;
     padding: 1em;
-    background: rgba(19,79,92,.5);
+    background: rgba(252, 252, 252, 0.5);
 }
 
 main div.galeria > img {
@@ -173,7 +173,7 @@ main div.galeria div h3 {
     padding: .5em;
     font-size: 3.2em;
     text-align: center;
-    color: #134F5C;
+    color: #000000;
 }
 
 main div.galeria div p {
@@ -219,11 +219,11 @@ footer ul li a {
     font-family: 'Montserrat';
     font-size: 1em;
     text-decoration: none;
-    color: #D0E0E3;
+    color: #000000;
 }
 
 footer ul li a:hover {
-    color: #a2c4c9;
+    color: #cec221;
 }
 
 /** Overs */

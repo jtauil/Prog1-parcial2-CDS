@@ -2,18 +2,15 @@
 
 let discos =[];
 
-// TESTEO // 
 
-
-
-// CLASS DISCO //
+// ------------------------CLASS DISCO ------------------//
 class Disco {
     #nombre = 'Nombre del disco';
     #autor = 'autor del disco';
     #codigo;
     pistas = [];
     static codigos = [];
-    static cantidadDiscos = 0 ; // es un contador empieza en cero
+    static cantidadDiscos = 0 ; 
 
     constructor(){
         console.log('se ha creado un disco nuevo');
@@ -45,9 +42,7 @@ class Disco {
         
         let codeExists = false ;
         do {
-
             this.#codigo = parseInt(prompt('Ingrese codigo del disco')); // ingreso datos 
-
         }while(!(this.#codigo >= 1 && this.#codigo <= 999 ) || Disco.codigos.includes(this.#codigo));
         Disco.codigos.push(this.#codigo);
         console.log(Disco.codigos);
@@ -56,6 +51,7 @@ class Disco {
     getCodigo(){
         return this.#codigo;
     }
+
     setPista(pista){
         this.pistas.push(pista); // recibo un objeto de tipo pista en lista pistas
     }
@@ -63,11 +59,15 @@ class Disco {
     acumDuracionPistas() {
         let acum = 0;
 
-        for(let pista of pistas) {
+        for(let pista of this.pistas) {
             acum += pista.getDuracionPista();
         }
 
         return acum;
+    }
+
+    getAcumDur(){
+        return this.acumDuracionPistas;
     }
 
     cantidadPistas() {
@@ -75,20 +75,31 @@ class Disco {
         return cantidad;
     }
 
+    getCantidadPistas() {
+        return this.cantidadPistas;
+    }
+
     promedioPistas(){
+        let acum = 0;
         let cantidad = this.pistas.length; // length del array
         
         for (let pista of this.pistas) {
-            acum += pista.getDuracion();
+           acum += pista.getDuracionPista();
         }
 
 
         let promedioDuracion = acum/cantidad ;
         return promedioDuracion;
-    }
+       }
 
     getPromedio(){
         return this.promedioPistas;
+    }
+
+  
+
+    getPistaMax(){
+        return this.setPistaMax;
     }
 
     bloqueHtml(){
@@ -102,25 +113,33 @@ class Disco {
         html += `<p> <strong>Pistas</strong></p>`;
         html += `<ul>`;
 
-        html += `<p>Promedio de duración de las pistas: ${this.promedioPistas()}</p>`
-
         for (let pista of this.pistas){
             html +=`<li> ${pista.bloqueHtml()}</li>`;
         }
 
         html += `</ul>`;
+        html += `<ul>`
+        html += `<li>Cantidad de pistas: ${this.cantidadPistas()}</li>`;
+        html += `<li>Duración total del disco: ${this.acumDuracionPistas()}</li>`;
+        html += `<li>Promedio del disco: ${this.promedioPistas()}</li>`;
+        
+
+        
+        html += `</ul>`
+
         
         return html;
     }
 
-
+}
 
 // ----------------- CLASE PISTA ------------------------ //
     
-}
+
 class Pista {
     #nombre = 'nombre de la pista';
     #duracion = '';
+    duraciones = [];
 
 
     constructor(){
@@ -147,7 +166,13 @@ class Pista {
             this.#duracion = parseInt(prompt('Ingrese la duración del disco. Debe ser entre 0 y 7200 segundos, inclusive'));
             banderita = !(this.#duracion >= 0 && this.#duracion <= 7200)
         } while (banderita);
+
+        let duraciones; 
+        this.duraciones.push(this.#duracion);
+
+        
     }
+
     
     getDuracionPista() {
         return this.#duracion;
@@ -156,7 +181,8 @@ class Pista {
 
     bloqueHtml(){
 
-        let html = `Nombre: ${this.#nombre} - <strong>Duracion:</strong> <span class="${(this.#duracion > 180) ? 'dpb' : 'apb'}">${this.#duracion}</span>`;
+        let html = `Nombre de la pista: ${this.#nombre} ||  Duración: <span class="${(this.#duracion > 180) ? 'mayor' : 'menor'}">${this.#duracion}</span>`
+
         return html;
     }
 
@@ -166,9 +192,10 @@ class Pista {
 
 
 // Función Cargar:
-let disco = new Disco();
+
 
 function Cargar(){
+    let disco = new Disco();
 
    
 
@@ -202,20 +229,11 @@ function Mostrar() {
         html += disco.bloqueHtml();
 
     }
-
-    for (let pista of disco.pistas) {
-       html += pista.bloqueHtml();
-    }
+    
 
     document.getElementById('info').innerHTML = html;
 }
 
 
 
-//deshacer --> { elimina el ultimo disco agregado //eliminas
-                ///Disco.cantidadDiscos--; // decrementas
-                ///mostrar{} //mostrar funciones adentro de otra
-//}
-//const mostrar
 
-// Todas las funciones que necesites:
