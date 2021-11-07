@@ -11,6 +11,7 @@ class Disco {
     pistas = [];
     static codigos = [];
     static cantidadDiscos = 0 ; 
+    
 
     constructor(){
         console.log('se ha creado un disco nuevo');
@@ -66,6 +67,29 @@ class Disco {
         return acum;
     }
 
+    maxCode() {
+
+        let max = 0;
+        let maxPista ;
+         
+
+        for(let pista of this.pistas){
+            console.log(pista);
+            if (pista.duracion > max){
+
+            max = pista.duracion; 
+            maxPista = pista;
+        } 
+        }
+        return maxPista;
+
+    }
+
+    getMaxcode(){
+        return this.maxCode;
+    }
+    
+
     getAcumDur(){
         return this.acumDuracionPistas;
     }
@@ -96,11 +120,9 @@ class Disco {
         return this.promedioPistas;
     }
 
-  
 
-    getPistaMax(){
-        return this.setPistaMax;
-    }
+   
+
 
     bloqueHtml(){
 
@@ -122,7 +144,10 @@ class Disco {
         html += `<li>Cantidad de pistas: ${this.cantidadPistas()}</li>`;
         html += `<li>Duración total del disco: ${this.acumDuracionPistas()}</li>`;
         html += `<li>Promedio del disco: ${this.promedioPistas()}</li>`;
-        
+        let pistaLarga = this.maxCode();
+        html += `<li>Pista con mayor duración: ${pistaLarga.nombre}, que dura ${pistaLarga.duracion} segundos </li>`;
+      
+       
 
         
         html += `</ul>`
@@ -137,9 +162,9 @@ class Disco {
     
 
 class Pista {
-    #nombre = 'nombre de la pista';
-    #duracion = '';
-    duraciones = [];
+    nombre = 'nombre de la pista';
+    duracion = '';
+    
 
 
     constructor(){
@@ -149,12 +174,12 @@ class Pista {
     setNombrePista(){
 
         do{
-        this.#nombre = prompt('ingrese el nombre de la cancion');
-        }while(!isNaN(this.#nombre));
+        this.nombre = prompt('ingrese el nombre de la cancion');
+        }while(!isNaN(this.nombre));
     }
 
     getNombre(){
-        return this.#nombre;
+        return this.nombre;
     }
 
 
@@ -162,29 +187,35 @@ class Pista {
         let banderita = false; 
         do{
             if (banderita){
-                alert('Error, la duración se excede de lo debido');  }
-            this.#duracion = parseInt(prompt('Ingrese la duración del disco. Debe ser entre 0 y 7200 segundos, inclusive'));
-            banderita = !(this.#duracion >= 0 && this.#duracion <= 7200)
+                alert('eso excede la duración');  }
+            this.duracion = parseInt(prompt('Ingrese la duración de la pista. Debe ser entre 0 y 7200 segundos, inclusive'));
+            banderita = !(this.duracion >= 0 && this.duracion <= 7200)
         } while (banderita);
 
-        let duraciones; 
-        this.duraciones.push(this.#duracion);
+        
 
         
     }
 
     
     getDuracionPista() {
-        return this.#duracion;
+        return this.duracion;
     }
-
+    
+    
+    getMaxcode() {
+        return this.maxCode;
+    }
 
     bloqueHtml(){
 
-        let html = `Nombre de la pista: ${this.#nombre} ||  Duración: <span class="${(this.#duracion > 180) ? 'mayor' : 'menor'}">${this.#duracion}</span>`
-
+        let html = `Nombre de la pista: ${this.nombre} ||  Duración: <span class="${(this.duracion > 180) ? 'mayor' : 'menor'}">${this.duracion}</span>`;
+        
         return html;
     }
+
+    
+
 
 }
 
@@ -229,10 +260,12 @@ function Mostrar() {
         html += disco.bloqueHtml();
 
     }
-    
+
+
 
     document.getElementById('info').innerHTML = html;
 }
+
 
 
 
